@@ -11,7 +11,7 @@
     <title>🎨 Chọn mẫu</title>
 
     <link rel="stylesheet"
-          href="./css/style.css">
+          href="css/style.css">
 
 </head>
 
@@ -20,6 +20,7 @@
 
     <div class="page">
 
+        <!-- TIÊU ĐỀ -->
         <h1>🎨 CHỌN MẪU BẠN THÍCH</h1>
 
         <p class="sub-title">
@@ -34,6 +35,7 @@
         <!-- 5 MẪU -->
         <div class="color-container">
 
+            <!-- MẪU 1 -->
             <div class="color-card"
                  onclick="chooseColor(1)"
                  id="color1">
@@ -47,6 +49,7 @@
             </div>
 
 
+            <!-- MẪU 2 -->
             <div class="color-card"
                  onclick="chooseColor(2)"
                  id="color2">
@@ -60,6 +63,7 @@
             </div>
 
 
+            <!-- MẪU 3 -->
             <div class="color-card"
                  onclick="chooseColor(3)"
                  id="color3">
@@ -73,6 +77,7 @@
             </div>
 
 
+            <!-- MẪU 4 -->
             <div class="color-card"
                  onclick="chooseColor(4)"
                  id="color4">
@@ -86,6 +91,7 @@
             </div>
 
 
+            <!-- MẪU 5 -->
             <div class="color-card"
                  onclick="chooseColor(5)"
                  id="color5">
@@ -101,6 +107,7 @@
         </div>
 
 
+        <!-- THÔNG BÁO -->
         <p id="message"></p>
 
     </div>
@@ -108,12 +115,18 @@
 
     <script>
 
-        // Lấy hộp quà đã chọn
+        // ==========================================
+        // LẤY HỘP QUÀ ĐÃ CHỌN
+        // ==========================================
+
         const selectedGift =
             localStorage.getItem("selectedGift");
 
 
-        // Nếu chưa chọn hộp
+        // ==========================================
+        // NẾU CHƯA CHỌN HỘP QUÀ
+        // ==========================================
+
         if (!selectedGift) {
 
             alert("Bạn chưa chọn hộp quà!");
@@ -123,7 +136,10 @@
         }
 
 
-        // Tên từng món
+        // ==========================================
+        // TÊN CỦA TỪNG MÓN QUÀ
+        // ==========================================
+
         const giftNames = {
 
             1: "🎒 Mẫu của món quà 1",
@@ -135,70 +151,105 @@
         };
 
 
-        // Hiện tên
+        // ==========================================
+        // HIỆN TÊN MÓN QUÀ
+        // ==========================================
+
         document.getElementById("giftTitle")
             .innerText = giftNames[selectedGift];
 
 
-        // Gắn đúng 5 ảnh theo hộp đã chọn
+        // ==========================================
+        // HIỆN 5 ẢNH TƯƠNG ỨNG VỚI HỘP QUÀ
+        // ==========================================
+
         for (let i = 1; i <= 5; i++) {
 
             document.getElementById("image" + i).src =
-                `../images/gift${selectedGift}-mau${i}.png`;
+                `images/gift${selectedGift}-mau${i}.png`;
 
         }
 
 
+        // ==========================================
+        // BIẾN LƯU MẪU ĐÃ CHỌN
+        // ==========================================
+
         let selectedColor = null;
 
 
+        // ==========================================
+        // HÀM CHỌN MẪU
+        // ==========================================
+
         function chooseColor(number) {
 
-            // Không cho chọn lần 2
+            // Nếu đã chọn rồi thì không cho chọn lại
             if (selectedColor !== null) {
+
                 return;
+
             }
 
 
+            // Lưu mẫu được chọn
             selectedColor = number;
 
 
-            // Card được chọn
+            // Lấy card được chọn
             const selectedCard =
                 document.getElementById(
                     "color" + number
                 );
 
 
+            // Thêm hiệu ứng selected
             selectedCard.classList.add("selected");
 
 
-            // Khóa 4 mẫu còn lại
+            // ======================================
+            // KHÓA 5 CARD
+            // ======================================
+
             document.querySelectorAll(".color-card")
-                .forEach(card => {
+                .forEach(function(card) {
 
                     card.style.pointerEvents = "none";
 
                 });
 
 
+            // ======================================
+            // HIỆN THÔNG BÁO
+            // ======================================
+
             document.getElementById("message")
                 .innerText =
                 "✨ Đã chọn mẫu! Đang chuẩn bị bất ngờ cuối cùng... ✨";
 
 
-            // Lưu mẫu
+            // ======================================
+            // LƯU MẪU VÀO LOCAL STORAGE
+            // ======================================
+
             localStorage.setItem(
                 "selectedColor",
                 number
             );
 
 
+            // ======================================
+            // TẠO HIỆU ỨNG
+            // ======================================
+
             createConfetti();
 
 
-            // Sang trang kết quả
-            setTimeout(function () {
+            // ======================================
+            // CHUYỂN SANG TRANG KẾT QUẢ
+            // ======================================
+
+            setTimeout(function() {
 
                 window.location.href =
                     "result.html";
@@ -208,6 +259,10 @@
         }
 
 
+        // ==========================================
+        // HIỆU ỨNG PHÁO GIẤY
+        // ==========================================
+
         function createConfetti() {
 
             for (let i = 0; i < 30; i++) {
@@ -215,21 +270,27 @@
                 const confetti =
                     document.createElement("div");
 
+
                 confetti.className =
                     "confetti";
 
+
                 confetti.innerHTML = "✨";
+
 
                 confetti.style.left =
                     Math.random() * 100 + "%";
 
+
                 confetti.style.animationDelay =
                     Math.random() * 2 + "s";
+
 
                 document.body.appendChild(confetti);
 
 
-                setTimeout(() => {
+                // Xóa sau khi chạy xong
+                setTimeout(function() {
 
                     confetti.remove();
 
