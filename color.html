@@ -2,7 +2,6 @@
 <html lang="vi">
 
 <head>
-
     <meta charset="UTF-8">
 
     <meta name="viewport"
@@ -11,8 +10,7 @@
     <title>🎨 Chọn mẫu</title>
 
     <link rel="stylesheet"
-          href="css/style.css">
-
+          href="/happybirthday2-9/css/style.css">
 </head>
 
 
@@ -131,13 +129,14 @@
 
             alert("Bạn chưa chọn hộp quà!");
 
-            window.location.href = "gift.html";
+            window.location.href =
+                "/happybirthday2-9/gift.html";
 
         }
 
 
         // ==========================================
-        // TÊN CỦA TỪNG MÓN QUÀ
+        // TÊN TỪNG MÓN QUÀ
         // ==========================================
 
         const giftNames = {
@@ -160,13 +159,16 @@
 
 
         // ==========================================
-        // HIỆN 5 ẢNH TƯƠNG ỨNG VỚI HỘP QUÀ
+        // HIỆN 5 ẢNH THEO HỘP QUÀ
         // ==========================================
 
         for (let i = 1; i <= 5; i++) {
 
-            document.getElementById("image" + i).src =
-                `images/gift${selectedGift}-mau${i}.png`;
+            const image =
+                document.getElementById("image" + i);
+
+            image.src =
+                `/happybirthday2-9/images/gift${selectedGift}-mau${i}.png`;
 
         }
 
@@ -186,9 +188,7 @@
 
             // Nếu đã chọn rồi thì không cho chọn lại
             if (selectedColor !== null) {
-
                 return;
-
             }
 
 
@@ -203,12 +203,12 @@
                 );
 
 
-            // Thêm hiệu ứng selected
+            // Thêm hiệu ứng đã chọn
             selectedCard.classList.add("selected");
 
 
             // ======================================
-            // KHÓA 5 CARD
+            // KHÓA TẤT CẢ MẪU
             // ======================================
 
             document.querySelectorAll(".color-card")
@@ -229,7 +229,7 @@
 
 
             // ======================================
-            // LƯU MẪU VÀO LOCAL STORAGE
+            // LƯU MẪU
             // ======================================
 
             localStorage.setItem(
@@ -239,7 +239,7 @@
 
 
             // ======================================
-            // TẠO HIỆU ỨNG
+            // TẠO PHÁO GIẤY
             // ======================================
 
             createConfetti();
@@ -252,7 +252,7 @@
             setTimeout(function() {
 
                 window.location.href =
-                    "result.html";
+                    "/happybirthday2-9/result.html";
 
             }, 1500);
 
@@ -275,7 +275,8 @@
                     "confetti";
 
 
-                confetti.innerHTML = "✨";
+                confetti.innerHTML =
+                    "✨";
 
 
                 confetti.style.left =
@@ -286,7 +287,9 @@
                     Math.random() * 2 + "s";
 
 
-                document.body.appendChild(confetti);
+                document.body.appendChild(
+                    confetti
+                );
 
 
                 // Xóa sau khi chạy xong
