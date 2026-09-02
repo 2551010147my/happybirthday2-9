@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>🎉 Quà của bạn</title>
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+
+</head>
+
+
+<body>
+
+    <div class="page">
+
+        <h1>🎉 BẤT NGỜ CUỐI CÙNG 🎉</h1>
+
+
+        <p class="sub-title">
+            Đây là món quà bạn đã chọn 💕
+        </p>
+
+
+        <div class="final-result">
+
+            <!-- ẢNH MẪU ĐÃ CHỌN -->
+            <img id="finalImage"
+                 src=""
+                 alt="Món quà">
+
+
+            <h2 id="finalTitle"></h2>
+
+
+            <p>
+                Chúc bạn có một sinh nhật thật vui vẻ,
+                luôn xinh đẹp, hạnh phúc và gặp thật nhiều
+                điều may mắn! 🎂💕
+            </p>
+
+
+            <button onclick="restart()">
+                💕 XEM LẠI QUÁ TRÌNH 
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <script>
+
+        const selectedGift =
+            localStorage.getItem("selectedGift");
+
+        const selectedColor =
+            localStorage.getItem("selectedColor");
+
+
+        // Nếu thiếu dữ liệu
+        if (!selectedGift || !selectedColor) {
+
+            alert("Thiếu thông tin món quà!");
+
+            window.location.href =
+                "index.html";
+
+        }
+
+
+        // Ảnh mẫu cuối cùng
+        const finalImage =
+            `../images/gift${selectedGift}-mau${selectedColor}.png`;
+
+
+        document.getElementById("finalImage").src =
+            finalImage;
+
+
+        // Tên
+        document.getElementById("finalTitle")
+            .innerText =
+            `🎁 Món quà ${selectedGift} - Mẫu ${selectedColor}`;
+
+
+        function restart() {
+
+            localStorage.clear();
+
+            window.location.href =
+                "index.html";
+
+        }
+
+
+        // Confetti
+        for (let i = 0; i < 40; i++) {
+
+            const confetti =
+                document.createElement("div");
+
+            confetti.className =
+                "confetti";
+
+            confetti.innerHTML = "🎉";
+
+            confetti.style.left =
+                Math.random() * 100 + "%";
+
+            confetti.style.animationDelay =
+                Math.random() * 2 + "s";
+
+            document.body.appendChild(confetti);
+
+        }
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>🎨 Chọn mẫu</title>
+
+    <link rel="stylesheet"
+          href="../css/style.css">
+
+</head>
+
+
+<body>
+
+    <div class="page">
+
+        <h1>🎨 CHỌN MẪU BẠN THÍCH</h1>
+
+        <p class="sub-title">
+            Chọn một mẫu duy nhất nhé 💕
+        </p>
+
+
+        <!-- TÊN MÓN QUÀ -->
+        <h2 id="giftTitle"></h2>
+
+
+        <!-- 5 MẪU -->
+        <div class="color-container">
+
+            <div class="color-card"
+                 onclick="chooseColor(1)"
+                 id="color1">
+
+                <img id="image1"
+                     src=""
+                     alt="Mẫu 1">
+
+                <p>Mẫu 1</p>
+
+            </div>
+
+
+            <div class="color-card"
+                 onclick="chooseColor(2)"
+                 id="color2">
+
+                <img id="image2"
+                     src=""
+                     alt="Mẫu 2">
+
+                <p>Mẫu 2</p>
+
+            </div>
+
+
+            <div class="color-card"
+                 onclick="chooseColor(3)"
+                 id="color3">
+
+                <img id="image3"
+                     src=""
+                     alt="Mẫu 3">
+
+                <p>Mẫu 3</p>
+
+            </div>
+
+
+            <div class="color-card"
+                 onclick="chooseColor(4)"
+                 id="color4">
+
+                <img id="image4"
+                     src=""
+                     alt="Mẫu 4">
+
+                <p>Mẫu 4</p>
+
+            </div>
+
+
+            <div class="color-card"
+                 onclick="chooseColor(5)"
+                 id="color5">
+
+                <img id="image5"
+                     src=""
+                     alt="Mẫu 5">
+
+                <p>Mẫu 5</p>
+
+            </div>
+
+        </div>
+
+
+        <p id="message"></p>
+
+    </div>
+
+
+    <script>
+
+        // Lấy hộp quà đã chọn
+        const selectedGift =
+            localStorage.getItem("selectedGift");
+
+
+        // Nếu chưa chọn hộp
+        if (!selectedGift) {
+
+            alert("Bạn chưa chọn hộp quà!");
+
+            window.location.href = "gift.html";
+
+        }
+
+
+        // Tên từng món
+        const giftNames = {
+
+            1: "🎒 Mẫu của món quà 1",
+
+            2: "🧸 Mẫu của món quà 2",
+
+            3: "🌷 Mẫu của món quà 3"
+
+        };
+
+
+        // Hiện tên
+        document.getElementById("giftTitle")
+            .innerText = giftNames[selectedGift];
+
+
+        // Gắn đúng 5 ảnh theo hộp đã chọn
+        for (let i = 1; i <= 5; i++) {
+
+            document.getElementById("image" + i).src =
+                `../images/gift${selectedGift}-mau${i}.png`;
+
+        }
+
+
+        let selectedColor = null;
+
+
+        function chooseColor(number) {
+
+            // Không cho chọn lần 2
+            if (selectedColor !== null) {
+                return;
+            }
+
+
+            selectedColor = number;
+
+
+            // Card được chọn
+            const selectedCard =
+                document.getElementById(
+                    "color" + number
+                );
+
+
+            selectedCard.classList.add("selected");
+
+
+            // Khóa 4 mẫu còn lại
+            document.querySelectorAll(".color-card")
+                .forEach(card => {
+
+                    card.style.pointerEvents = "none";
+
+                });
+
+
+            document.getElementById("message")
+                .innerText =
+                "✨ Đã chọn mẫu! Đang chuẩn bị bất ngờ cuối cùng... ✨";
+
+
+            // Lưu mẫu
+            localStorage.setItem(
+                "selectedColor",
+                number
+            );
+
+
+            createConfetti();
+
+
+            // Sang trang kết quả
+            setTimeout(function () {
+
+                window.location.href =
+                    "result.html";
+
+            }, 1500);
+
+        }
+
+
+        function createConfetti() {
+
+            for (let i = 0; i < 30; i++) {
+
+                const confetti =
+                    document.createElement("div");
+
+                confetti.className =
+                    "confetti";
+
+                confetti.innerHTML = "✨";
+
+                confetti.style.left =
+                    Math.random() * 100 + "%";
+
+                confetti.style.animationDelay =
+                    Math.random() * 2 + "s";
+
+                document.body.appendChild(confetti);
+
+
+                setTimeout(() => {
+
+                    confetti.remove();
+
+                }, 3000);
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>
