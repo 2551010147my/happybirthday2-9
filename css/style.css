@@ -1308,3 +1308,78 @@ body::after {
 .design-card button:hover {
     background: #e96b9f;
 }
+/* =========================
+   TRANG KẾT QUẢ
+========================= */
+
+.result-page {
+    width: 90%;
+    max-width: 700px;
+    min-height: 90vh;
+    margin: 30px auto;
+    padding: 40px 30px;
+
+    background: white;
+    border-radius: 30px;
+
+    text-align: center;
+
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Khung ảnh */
+
+.result-image-box {
+    width: 100%;
+    height: 400px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+/* Ảnh */
+
+.result-image {
+    max-width: 90%;
+    max-height: 380px;
+
+    object-fit: contain;
+
+    display: block;
+}
+
+/* Tiêu đề */
+
+.result-page h1 {
+    color: #df4f8c;
+    font-size: 32px;
+    margin: 15px 0;
+}
+
+/* Lời chúc */
+
+.result-message {
+    max-width: 600px;
+
+    font-size: 18px;
+    line-height: 1.7;
+
+    color: #765b68;
+
+    margin-top: 10px;
+}
+
+/* Tim */
+
+.heart {
+    font-size: 25px;
+    margin-top: 20px;
+}

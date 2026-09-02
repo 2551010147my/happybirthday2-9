@@ -2,124 +2,87 @@
 <html lang="vi">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <title>🎁 Quà của bạn</title>
 
-    <title>🎉 Quà của bạn</title>
-
-    <link rel="stylesheet"
-          href="./css/style.css">
-
+    <link rel="stylesheet" href="css/style.css">
 </head>
-
 
 <body>
 
-    <div class="page">
+    <div class="result-page">
 
-        <h1>🎉 BẤT NGỜ CUỐI CÙNG 🎉</h1>
+        <!-- Ảnh món quà -->
+        <div class="result-image-box">
+
+            <img
+                id="resultImage"
+                src=""
+                alt="Món quà"
+                class="result-image"
+            >
+
+        </div>
 
 
-        <p class="sub-title">
-            Đây là món quà bạn đã chọn 💕
+        <!-- Tên món quà -->
+        <h1 id="resultTitle">
+            🎁 Món quà
+        </h1>
+
+
+        <!-- Lời chúc -->
+        <p class="result-message">
+            Chúc bạn có một sinh nhật thật vui vẻ,
+            luôn xinh đẹp, hạnh phúc và gặp thật nhiều
+            điều may mắn! 🎂 💕
         </p>
 
 
-        <div class="final-result">
-
-            <!-- ẢNH MẪU ĐÃ CHỌN -->
-            <img id="finalImage"
-                 src=""
-                 alt="Món quà">
-
-
-            <h2 id="finalTitle"></h2>
-
-
-            <p>
-                Chúc bạn có một sinh nhật thật vui vẻ,
-                luôn xinh đẹp, hạnh phúc và gặp thật nhiều
-                điều may mắn! 🎂💕
-            </p>
-
-
-            <button onclick="restart()">
-                💕 XEM LẠI QUÁ TRÌNH 
-            </button>
-
-        </div>
+        <p class="heart">
+            💗 🎀 ✨ 💗
+        </p>
 
     </div>
 
 
     <script>
 
+        // Lấy món quà đã chọn
         const selectedGift =
             localStorage.getItem("selectedGift");
 
-        const selectedColor =
-            localStorage.getItem("selectedColor");
+
+        // Lấy mẫu đã chọn
+        const selectedDesign =
+            localStorage.getItem("selectedDesign");
 
 
-        // Nếu thiếu dữ liệu
-        if (!selectedGift || !selectedColor) {
+        // Kiểm tra dữ liệu
+        if (!selectedGift || !selectedDesign) {
 
-            alert("Thiếu thông tin món quà!");
+            alert("Bạn chưa chọn quà!");
 
-            window.location.href =
-                "index.html";
-
-        }
-
-
-        // Ảnh mẫu cuối cùng
-        const finalImage =
-            `../images/gift${selectedGift}-mau${selectedColor}.png`;
-
-
-        document.getElementById("finalImage").src =
-            finalImage;
-
-
-        // Tên
-        document.getElementById("finalTitle")
-            .innerText =
-            `🎁 Món quà ${selectedGift} - Mẫu ${selectedColor}`;
-
-
-        function restart() {
-
-            localStorage.clear();
-
-            window.location.href =
-                "index.html";
+            window.location.href = "gift.html";
 
         }
 
 
-        // Confetti
-        for (let i = 0; i < 40; i++) {
+        // Hiển thị ảnh
+        document.getElementById("resultImage").src =
+            "images/" + selectedDesign;
 
-            const confetti =
-                document.createElement("div");
 
-            confetti.className =
-                "confetti";
-
-            confetti.innerHTML = "🎉";
-
-            confetti.style.left =
-                Math.random() * 100 + "%";
-
-            confetti.style.animationDelay =
-                Math.random() * 2 + "s";
-
-            document.body.appendChild(confetti);
-
-        }
+        // Hiển thị tên
+        document.getElementById("resultTitle").textContent =
+            "🎁 Món quà " +
+            selectedGift +
+            " - " +
+            selectedDesign
+                .replace("gift" + selectedGift + "-mau", "Mẫu ")
+                .replace(".png", "");
 
     </script>
 
