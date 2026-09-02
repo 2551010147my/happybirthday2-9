@@ -3,303 +3,108 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <title>Chọn mẫu 🎨</title>
 
-    <title>🎨 Chọn mẫu</title>
-
-    <link rel="stylesheet"
-          href="/happybirthday2-9/css/style.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
-
 
 <body>
 
-    <div class="page">
+    <div class="color-page">
 
-        <!-- TIÊU ĐỀ -->
         <h1>🎨 CHỌN MẪU BẠN THÍCH</h1>
 
-        <p class="sub-title">
+        <p class="subtitle">
             Chọn một mẫu duy nhất nhé 💕
         </p>
 
+        <!-- Hiển thị quà đã chọn -->
+        <h2>
+            🧸 Mẫu của món quà
+            <span id="giftNumber"></span>
+        </h2>
 
-        <!-- TÊN MÓN QUÀ -->
-        <h2 id="giftTitle"></h2>
-
-
-        <!-- 5 MẪU -->
-        <div class="color-container">
-
-            <!-- MẪU 1 -->
-            <div class="color-card"
-                 onclick="chooseColor(1)"
-                 id="color1">
-
-                <img id="image1"
-                     src=""
-                     alt="Mẫu 1">
-
-                <p>Mẫu 1</p>
-
-            </div>
-
-
-            <!-- MẪU 2 -->
-            <div class="color-card"
-                 onclick="chooseColor(2)"
-                 id="color2">
-
-                <img id="image2"
-                     src=""
-                     alt="Mẫu 2">
-
-                <p>Mẫu 2</p>
-
-            </div>
-
-
-            <!-- MẪU 3 -->
-            <div class="color-card"
-                 onclick="chooseColor(3)"
-                 id="color3">
-
-                <img id="image3"
-                     src=""
-                     alt="Mẫu 3">
-
-                <p>Mẫu 3</p>
-
-            </div>
-
-
-            <!-- MẪU 4 -->
-            <div class="color-card"
-                 onclick="chooseColor(4)"
-                 id="color4">
-
-                <img id="image4"
-                     src=""
-                     alt="Mẫu 4">
-
-                <p>Mẫu 4</p>
-
-            </div>
-
-
-            <!-- MẪU 5 -->
-            <div class="color-card"
-                 onclick="chooseColor(5)"
-                 id="color5">
-
-                <img id="image5"
-                     src=""
-                     alt="Mẫu 5">
-
-                <p>Mẫu 5</p>
-
-            </div>
-
-        </div>
-
-
-        <!-- THÔNG BÁO -->
-        <p id="message"></p>
+        <!-- 5 mẫu -->
+        <div class="design-list" id="designList"></div>
 
     </div>
 
 
     <script>
 
-        // ==========================================
-        // LẤY HỘP QUÀ ĐÃ CHỌN
-        // ==========================================
-
-        const selectedGift =
-            localStorage.getItem("selectedGift");
+        // Lấy món quà người dùng đã chọn ở gift.html
+        const selectedGift = localStorage.getItem("selectedGift");
 
 
-        // ==========================================
-        // NẾU CHƯA CHỌN HỘP QUÀ
-        // ==========================================
-
+        // Nếu chưa chọn quà
         if (!selectedGift) {
 
-            alert("Bạn chưa chọn hộp quà!");
+            alert("Bạn chưa chọn món quà nào!");
 
-            window.location.href =
-                "/happybirthday2-9/gift.html";
+            window.location.href = "gift.html";
 
         }
 
 
-        // ==========================================
-        // TÊN TỪNG MÓN QUÀ
-        // ==========================================
-
-        const giftNames = {
-
-            1: "🎒 Mẫu của món quà 1",
-
-            2: "🧸 Mẫu của món quà 2",
-
-            3: "🌷 Mẫu của món quà 3"
-
-        };
+        // Hiển thị số món quà
+        document.getElementById("giftNumber").textContent = selectedGift;
 
 
-        // ==========================================
-        // HIỆN TÊN MÓN QUÀ
-        // ==========================================
-
-        document.getElementById("giftTitle")
-            .innerText = giftNames[selectedGift];
+        // Lấy khu vực chứa 5 mẫu
+        const designList = document.getElementById("designList");
 
 
-        // ==========================================
-        // HIỆN 5 ẢNH THEO HỘP QUÀ
-        // ==========================================
-
+        // Tạo 5 mẫu
         for (let i = 1; i <= 5; i++) {
 
-            const image =
-                document.getElementById("image" + i);
+            const design = document.createElement("div");
 
-            image.src =
-                `/happybirthday2-9/images/gift${selectedGift}-mau${i}.png`;
+            design.className = "design-card";
 
+
+            // Đường dẫn ảnh
+            const imagePath =
+                `images/gift${selectedGift}-mau${i}.png`;
+
+
+            design.innerHTML = `
+
+                <img
+                    src="${imagePath}"
+                    alt="Mẫu ${i}"
+                    class="design-image"
+                >
+
+                <p>Mẫu ${i}</p>
+
+                <button onclick="chooseDesign(${i})">
+                    💖 Chọn mẫu này
+                </button>
+
+            `;
+
+
+            // Thêm vào trang
+            designList.appendChild(design);
         }
 
 
-        // ==========================================
-        // BIẾN LƯU MẪU ĐÃ CHỌN
-        // ==========================================
 
-        let selectedColor = null;
+        // Khi chọn một mẫu
+        function chooseDesign(number) {
 
-
-        // ==========================================
-        // HÀM CHỌN MẪU
-        // ==========================================
-
-        function chooseColor(number) {
-
-            // Nếu đã chọn rồi thì không cho chọn lại
-            if (selectedColor !== null) {
-                return;
-            }
-
-
-            // Lưu mẫu được chọn
-            selectedColor = number;
-
-
-            // Lấy card được chọn
-            const selectedCard =
-                document.getElementById(
-                    "color" + number
-                );
-
-
-            // Thêm hiệu ứng đã chọn
-            selectedCard.classList.add("selected");
-
-
-            // ======================================
-            // KHÓA TẤT CẢ MẪU
-            // ======================================
-
-            document.querySelectorAll(".color-card")
-                .forEach(function(card) {
-
-                    card.style.pointerEvents = "none";
-
-                });
-
-
-            // ======================================
-            // HIỆN THÔNG BÁO
-            // ======================================
-
-            document.getElementById("message")
-                .innerText =
-                "✨ Đã chọn mẫu! Đang chuẩn bị bất ngờ cuối cùng... ✨";
-
-
-            // ======================================
-            // LƯU MẪU
-            // ======================================
-
+            // Lưu mẫu đã chọn
             localStorage.setItem(
-                "selectedColor",
-                number
+                "selectedDesign",
+                `gift${selectedGift}-mau${number}.png`
             );
 
 
-            // ======================================
-            // TẠO PHÁO GIẤY
-            // ======================================
-
-            createConfetti();
-
-
-            // ======================================
-            // CHUYỂN SANG TRANG KẾT QUẢ
-            // ======================================
-
-            setTimeout(function() {
-
-                window.location.href =
-                    "/happybirthday2-9/result.html";
-
-            }, 1500);
-
-        }
-
-
-        // ==========================================
-        // HIỆU ỨNG PHÁO GIẤY
-        // ==========================================
-
-        function createConfetti() {
-
-            for (let i = 0; i < 30; i++) {
-
-                const confetti =
-                    document.createElement("div");
-
-
-                confetti.className =
-                    "confetti";
-
-
-                confetti.innerHTML =
-                    "✨";
-
-
-                confetti.style.left =
-                    Math.random() * 100 + "%";
-
-
-                confetti.style.animationDelay =
-                    Math.random() * 2 + "s";
-
-
-                document.body.appendChild(
-                    confetti
-                );
-
-
-                // Xóa sau khi chạy xong
-                setTimeout(function() {
-
-                    confetti.remove();
-
-                }, 3000);
-
-            }
+            // Chuyển sang trang kết quả
+            window.location.href = "result.html";
 
         }
 
